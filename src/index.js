@@ -84,6 +84,49 @@ class RainMaker {
       return { status: error.status, result: error };
     }
   }
+  async getAllNodeParams(node) {
+    this.checkClient();
+    try {
+      const response = await this.apiClient.apis[
+        "Node Parameter Operations"
+      ].getnodestate({
+        version: "v1",
+        node_id: node,
+      });
+      return { status: response.status, result: response.body };
+    } catch (error) {
+      return { status: error.status, result: error };
+    }
+  }
+  async setNodeParamValue(node, device, param, value) {
+    this.checkClient();
+    const reqBody = [
+      {
+        node_id: node,
+        payload: {
+          [device]: {
+            [param]: value,
+          },
+        },
+      },
+    ];
+    try {
+      const response = await this.apiClient.apis[
+        "Node Parameter Operations"
+      ].updatenodestate(
+        {
+          version: "v1",
+        },
+        {
+          requestBody: reqBody,
+          requestInterceptor,
+        }
+      );
+      return { status: response.status, result: response.body };
+    } catch (error) {
+      return { status: error.status, result: error };
+    }
+  }
 }
 
 module.exports = RainMaker;
