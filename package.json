@@ -1,0 +1,38 @@
+{
+  "name": "rainmaker-client",
+  "version": "0.0.1",
+  "description": "A NodeJs Package for interfacing Espressif Rainmaker IoT",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "babel src -d dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sahilkhanna/rainmaker-client.git"
+  },
+  "dependencies": {
+    "swagger-client": "^3.18.4"
+  },
+  "keywords": [
+    "node",
+    "rainmaker",
+    "esp",
+    "esp32",
+    "espressif",
+    "IoT",
+    "OAS",
+    "Swagger",
+    "REST"
+  ],
+  "author": "Sahil Khanna",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sahilkhanna/rainmaker-client/issues"
+  },
+  "homepage": "https://github.com/sahilkhanna/rainmaker-client#readme",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1"
+  }
+}
