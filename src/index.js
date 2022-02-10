@@ -119,7 +119,6 @@ class RainMaker {
         },
         {
           requestBody: reqBody,
-          requestInterceptor,
         }
       );
       return { status: response.status, result: response.body };
