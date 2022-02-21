@@ -1,17 +1,21 @@
 import Swagger from "swagger-client";
 const OPENAPI_URL =
   "https://swaggerapis.rainmaker.espressif.com/Rainmaker_Swagger.yaml";
-
 const requestInterceptor = (request) => {
   console.log(request);
   return request;
 };
 class RainMaker {
-  constructor(username, password) {
+  constructor(username, password, url) {
     this.username = username;
     this.password = password;
     if (this.username === undefined || this.password === undefined) {
       throw new Error("One or all Credentials are undefined");
+    }
+    if (url) {
+      this.url = url;
+    } else {
+      this.url = OPENAPI_URL;
     }
     this.apiClient = null;
   }
@@ -27,8 +31,9 @@ class RainMaker {
       user_name: this.username,
       password: this.password,
     };
+
     const apiClient = await Swagger({
-      url: OPENAPI_URL,
+      url: this.url,
       responseContentType: "application/json",
       authorizations: { AccessToken: "" },
     });
@@ -40,7 +45,7 @@ class RainMaker {
         }
       );
       this.apiClient = await Swagger({
-        url: OPENAPI_URL,
+        url: this.url,
         responseContentType: "application/json",
         authorizations: { AccessToken: response.body.accesstoken },
       });
