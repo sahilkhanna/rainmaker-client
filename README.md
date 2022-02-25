@@ -2,13 +2,13 @@
 
 A NodeJs Package for interfacing Espressif Rainmaker IoT.
 
-# Install
+## Install
 
 ```bash
 npm install rainmaker-client
 ```
 
-# Usage
+## Usage
 
 ```js
 import RainMaker from "rainmaker-client";
@@ -29,7 +29,13 @@ isAuth();
 
 ## Authenticate
 
-`authenticate` method is used to get accesstoken for Authnticated APIs.
+`authenticate` method is used to get accesstoken for Authnticated APIs. Pass `true` as param to extend session using `refreshtoken` instead of `password`.
+
+Stored `refreshtoken` can be retrieved by :
+
+```js
+const token = client.refreshtoken;
+```
 
 ## User Nodes
 
@@ -39,7 +45,13 @@ isAuth();
 
 `getTimeSeriesData` returns time series data for a specific node. Currently it only supports aggregate = `raw`.
 
-# Quick links
+## Demo
+
+This package is being developed to create a webApp dashboard for ESP Rainmaker IoT solution. Checkout the link below -
+
+[Rainmaker IoT Dashboard](https://sahilkhanna.github.io/rainmaker-iot-dashboard/)
+
+## Quick links
 
 - [ESP Rainmaker](https://rainmaker.espressif.com/)
 - [API Definitions for RainMaker Backend Service](https://swaggerapis.rainmaker.espressif.com/)

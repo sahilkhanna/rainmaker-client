@@ -18,6 +18,10 @@ class RainMaker {
       this.url = OPENAPI_URL;
     }
     this.apiClient = null;
+    this.refreshtoken = null;
+  }
+  get refreshToken() {
+    return this.refreshtoken;
   }
   async getApiFunctions() {
     if (this.apiClient) {
@@ -26,11 +30,19 @@ class RainMaker {
       return { status: 400, result: "No Client resolved" };
     }
   }
-  async authenticate() {
-    const credentials = {
-      user_name: this.username,
-      password: this.password,
-    };
+  async authenticate(extendSession = false) {
+    let credentials;
+    if (extendSession) {
+      credentials = {
+        user_name: this.username,
+        refreshtoken: this.refreshtoken,
+      };
+    } else {
+      credentials = {
+        user_name: this.username,
+        password: this.password,
+      };
+    }
 
     const apiClient = await Swagger({
       url: this.url,
@@ -44,12 +56,19 @@ class RainMaker {
           requestBody: credentials,
         }
       );
-      this.apiClient = await Swagger({
-        url: this.url,
-        responseContentType: "application/json",
-        authorizations: { AccessToken: response.body.accesstoken },
-      });
-      return { status: response.status, result: "Authentication Successful" };
+      if (response.status === 200) {
+        if (!extendSession) {
+          this.refreshtoken = response.body.refreshtoken;
+        }
+        this.apiClient = await Swagger({
+          url: this.url,
+          responseContentType: "application/json",
+          authorizations: { AccessToken: response.body.accesstoken },
+        });
+        return { status: response.status, result: "Authentication Successful" };
+      } else {
+        return { status: error.response.status, result: error.response.body };
+      }
     } catch (error) {
       return { status: error.response.status, result: error.response.body };
     }
