@@ -122,6 +122,31 @@ class RainMaker {
       return { status: error.status, result: error };
     }
   }
+  async getUserGroupDetails(nodeList = false, groupID, nodeDetails = false) {
+    this.checkClient();
+    let reqParam;
+    if (groupID) {
+      reqParam = {
+        version: "v1",
+        node_list: nodeList,
+        group_id: groupID,
+        node_details: nodeDetails,
+      };
+    } else {
+      reqParam = {
+        version: "v1",
+        node_list: nodeList,
+      };
+    }
+    try {
+      const response = await this.apiClient.apis[
+        "Device grouping"
+      ].usergetdevicegroup(reqParam);
+      return { status: response.status, result: response.body };
+    } catch (error) {
+      return { status: error.status, result: error };
+    }
+  }
   async setNodeParamValue(node, device, param, value) {
     this.checkClient();
     const reqBody = [
