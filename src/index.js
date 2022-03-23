@@ -2,7 +2,7 @@ import Swagger from "swagger-client";
 const OPENAPI_URL =
   "https://swaggerapis.rainmaker.espressif.com/Rainmaker_Swagger.yaml";
 const requestInterceptor = (request) => {
-  console.log(request);
+  console.dir(request);
   return request;
 };
 class RainMaker {
@@ -122,6 +122,7 @@ class RainMaker {
       return { status: error.status, result: error };
     }
   }
+  //User Group
   async getUserGroupDetails(nodeList = false, groupID, nodeDetails = false) {
     this.checkClient();
     let reqParam;
@@ -147,6 +148,47 @@ class RainMaker {
       return { status: error.status, result: error };
     }
   }
+
+  async createUserGroup(groupName, nodeList, description = "") {
+    this.checkClient();
+    let reqBody = {
+      group_name: groupName,
+      nodes: nodeList,
+      description: description,
+    };
+    try {
+      const response = await this.apiClient.apis[
+        "Device grouping"
+      ].usercreatedevicegroup(
+        {
+          version: "v1",
+        },
+        { requestBody: reqBody }
+      );
+      return { status: response.status, result: response.body };
+    } catch (error) {
+      return { status: error.status, result: error };
+    }
+  }
+  async deleteUserGroup(groupID) {
+    this.checkClient();
+    let reqParam;
+    if (groupID) {
+      reqParam = {
+        version: "v1",
+        group_id: groupID,
+      };
+    }
+    try {
+      const response = await this.apiClient.apis[
+        "Device grouping"
+      ].userdeletedevicegroup(reqParam);
+      return { status: response.status, result: response.body };
+    } catch (error) {
+      return { status: error.status, result: error };
+    }
+  }
+  //Params
   async setNodeParamValue(node, device, param, value) {
     this.checkClient();
     const reqBody = [
