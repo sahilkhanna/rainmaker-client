@@ -148,8 +148,7 @@ class RainMaker {
       return { status: error.status, result: error };
     }
   }
-
-  async createUserGroup(groupName, nodeList, description = "") {
+  async createUserGroup(groupName, nodeList = [], description = "") {
     this.checkClient();
     let reqBody = {
       group_name: groupName,

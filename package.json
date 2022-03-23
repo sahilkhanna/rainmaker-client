@@ -1,6 +1,6 @@
 {
   "name": "rainmaker-client",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "A NodeJs Package for interfacing Espressif Rainmaker IoT",
   "main": "index.js",
   "scripts": {

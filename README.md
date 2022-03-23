@@ -43,6 +43,8 @@ const token = client.refreshtoken;
 
 ## User Group List or Group Details
 
+### Get User Group
+
 `getUserGroupDetails` returns a list of groups associated to the user or details about specific group.
 
 It accepts three arguments
@@ -50,6 +52,24 @@ It accepts three arguments
 1. `nodeList` (default `false`): Pass `true` to get list of nodes in the group.
 2. `groupID`: pass **_Group ID_** to get specific details of a particular group.
 3. `nodeDetails` (default `false`): to get node details associated to that group. Must provide a group ID.
+
+### Add User Group
+
+`createUserGroup` creates a new user group with the option of adding nodes and description.
+
+It accepts three arguments
+
+1. `groupName`: Name of the group.
+2. `nodeList` (optional): Array of Node IDs.
+3. `description` (optional): Add description to user group.
+
+### Delete User Group
+
+`deleteUserGroup` deletes a user group.
+
+It accepts only one argument
+
+1. `groupID`: User Group ID to deletye.
 
 ## Time Series Data
 
